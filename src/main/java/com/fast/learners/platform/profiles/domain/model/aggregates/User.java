@@ -1,6 +1,7 @@
 package com.fast.learners.platform.profiles.domain.model.aggregates;
 import com.fast.learners.platform.profiles.domain.model.commands.CreateUserCommand;
 import com.fast.learners.platform.profiles.domain.model.valueobjects.EmailAddress;
+import com.fast.learners.platform.profiles.domain.model.valueobjects.Membership;
 import com.fast.learners.platform.profiles.domain.model.valueobjects.PersonName;
 import com.fast.learners.platform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
@@ -21,14 +22,16 @@ public class User extends AuditableAbstractAggregateRoot<User>{
     private String password;
     private Membership membership;
 
-    public User(String firstName, String middleName, String lastName, String email) {
+    public User(String firstName, String middleName, String lastName, String email, Membership membership) {
         this.name = new PersonName(firstName, middleName, lastName);
         this.email = new EmailAddress(email);
+        this.membership = membership;
     }
 
     public User(CreateUserCommand command) {
         this.name = new PersonName(command.firstName(), command.middleName(), command.lastName());
         this.email = new EmailAddress(command.email());
+        this.membership = command.membership();
     }
 
     public User() {
