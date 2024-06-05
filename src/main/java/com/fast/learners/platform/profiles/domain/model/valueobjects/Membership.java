@@ -1,8 +1,21 @@
 package com.fast.learners.platform.profiles.domain.model.valueobjects;
 
-public enum Membership {
-    BASIC,
-    REGULAR,
-    PREMIUM;
+public record Membership (String type) {
+
+    public Membership() {
+        this(null);
+    }
+
+    public Membership {
+        if (type == null || type.isBlank()) {
+            throw new IllegalArgumentException("Membership type cannot be null or blank");
+        }
+        if (!type.equals("Basic") && !type.equals("Regular") && !type.equals("Premium")) {
+            throw new IllegalArgumentException("Not a valid membership type");
+        }
+    }
+    public String getMembership() {
+        return String.format("%s", type) ;
+    }
 
 }

@@ -7,7 +7,7 @@ import com.fast.learners.platform.shared.domain.model.aggregates.AuditableAbstra
 import jakarta.persistence.*;
 
 @Entity
-public class User extends AuditableAbstractAggregateRoot<User>{
+public class User extends AuditableAbstractAggregateRoot<User> {
 
     @Embedded
     @AttributeOverrides({
@@ -18,20 +18,25 @@ public class User extends AuditableAbstractAggregateRoot<User>{
     private PersonName name;
 
     @Embedded
-    EmailAddress email;
-    private String password;
+    @AttributeOverrides({
+            @AttributeOverride(name = "type", column = @Column(name = "Basic")),
+    })
     private Membership membership;
 
-    public User(String firstName, String middleName, String lastName, String email, Membership membership) {
+    @Embedded
+    EmailAddress email;
+    private String password;
+
+    public User(String firstName, String middleName, String lastName, String email, String membership) {
         this.name = new PersonName(firstName, middleName, lastName);
         this.email = new EmailAddress(email);
-        this.membership = membership;
+        this.membership = new Membership(membership);
     }
 
     public User(CreateUserCommand command) {
         this.name = new PersonName(command.firstName(), command.middleName(), command.lastName());
         this.email = new EmailAddress(command.email());
-        this.membership = command.membership();
+        this.membership = new Membership(command.membership());
     }
 
     public User() {
@@ -49,7 +54,6 @@ public class User extends AuditableAbstractAggregateRoot<User>{
         this.membership = newMembership;
     }
 
-    // Change password method
     public void updatePassword(String newPassword) {
         this.password = newPassword;
     }
@@ -62,6 +66,8 @@ public class User extends AuditableAbstractAggregateRoot<User>{
         return email.address();
     }
 
-
+    public String getMembership() {
+        return this.membership.getMembership();
+    }
 
 }
