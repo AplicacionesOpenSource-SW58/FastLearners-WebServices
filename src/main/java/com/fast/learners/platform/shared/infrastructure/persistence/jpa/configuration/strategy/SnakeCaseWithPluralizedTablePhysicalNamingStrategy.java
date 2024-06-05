@@ -1,12 +1,10 @@
-package com.fast.learners.src.main.java.com.fast.learners.platform.shared.infrastructure.persistence.jpa.configuration.strategy;
-
+package com.fast.learners.platform.shared.infrastructure.persistence.jpa.configuration.strategy;
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
-
 import static io.github.encryptorcode.pluralize.Pluralize.pluralize;
 
-public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy implements PhysicalNamingStrategy {
+public class SnakeCaseWithPluralizedTablePhysicalNamingStrategy implements PhysicalNamingStrategy{
     @Override
     public Identifier toPhysicalCatalogName(Identifier identifier, JdbcEnvironment jdbcEnvironment) {
         return this.toSnakeCase(identifier);
