@@ -1,4 +1,4 @@
-package com.fast.learners.platform.users.domain.model.services;
+package com.fast.learners.platform.users.domain.services;
 import com.fast.learners.platform.users.domain.model.aggregates.User;
 import com.fast.learners.platform.users.domain.model.queries.GetUserByEmailQuery;
 import com.fast.learners.platform.users.domain.model.queries.GetUserByIdQuery;

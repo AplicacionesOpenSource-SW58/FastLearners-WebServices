@@ -7,6 +7,6 @@ import com.fast.learners.platform.users.interfaces.rest.resources.CreateUserReso
 public class CreateUserCommandFromResourceAssembler {
 
     public static CreateUserCommand toCommandFromResource(CreateUserResource resource) {
-        return new CreateUserCommand(resource.firstName(), resource.middleName(), resource.lastName(), resource.email(), resource.membership());
+        return new CreateUserCommand(resource.firstName(), resource.middleName(), resource.lastName(), resource.email(), resource.password(),resource.membership());
     }
 }
