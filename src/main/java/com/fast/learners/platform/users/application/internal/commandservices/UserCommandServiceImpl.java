@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserCommandServiceImpl {
+public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
 
     public UserCommandServiceImpl(UserRepository userRepository) {
