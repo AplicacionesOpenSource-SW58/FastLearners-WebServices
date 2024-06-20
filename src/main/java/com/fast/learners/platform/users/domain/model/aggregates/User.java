@@ -14,11 +14,10 @@ public class User extends AuditableAbstractAggregateRoot<User> {
 
     @Embedded
     private Membership membership;
-    @Embedded
-    EmailAddress email;
+    private EmailAddress email;
     private String password;
 
-    public User(String firstName, String middleName, String lastName, String email, String membership) {
+    public User(String firstName, String middleName, String lastName, String email, String password, String membership) {
         this.name = new PersonName(firstName, middleName, lastName);
         this.email = new EmailAddress(email);
         this.membership = new Membership(membership);
@@ -27,6 +26,7 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     public User(CreateUserCommand command) {
         this.name = new PersonName(command.firstName(), command.middleName(), command.lastName());
         this.email = new EmailAddress(command.email());
+        this.password = command.password();
         this.membership = new Membership(command.membership());
     }
 
@@ -54,11 +54,10 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     }
 
     public String getEmailAddress() {
-        return email.address();
+        return email.getEmail();
     }
 
     public String getMembership() {
         return this.membership.getMembership();
     }
-
 }
