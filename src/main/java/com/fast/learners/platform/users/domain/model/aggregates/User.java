@@ -9,20 +9,11 @@ import jakarta.persistence.*;
 @Entity
 public class User extends AuditableAbstractAggregateRoot<User> {
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "firstName", column = @Column(name = "pepe")),
-            @AttributeOverride(name = "middleName", column = @Column(name = "pepo")),
-            @AttributeOverride(name = "lastName", column = @Column(name = "perez")),
-    })
+
     private PersonName name;
 
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "type", column = @Column(name = "Basic")),
-    })
     private Membership membership;
-
     @Embedded
     EmailAddress email;
     private String password;
