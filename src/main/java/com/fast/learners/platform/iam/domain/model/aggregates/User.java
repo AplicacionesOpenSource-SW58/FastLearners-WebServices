@@ -33,7 +33,7 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(	name = "user_memberships",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Membership> memberships;
