@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1/users", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "Users", description = "User Management Endpoints")
+@Tag(name = "Users", description = "UserAuth Management Endpoints")
 
 public class UsersController {
 

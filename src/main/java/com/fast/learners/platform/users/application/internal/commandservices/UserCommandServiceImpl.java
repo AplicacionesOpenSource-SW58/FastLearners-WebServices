@@ -20,7 +20,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     public Optional<User> handle(CreateUserCommand command) {
         var emailAddress = new EmailAddress(command.email());
         userRepository.findByEmail(emailAddress).map(profile -> {
-            throw new IllegalArgumentException("User with email " + command.email() + " already exists");
+            throw new IllegalArgumentException("UserAuth with email " + command.email() + " already exists");
         });
         var profile = new User(command);
         userRepository.save(profile);
