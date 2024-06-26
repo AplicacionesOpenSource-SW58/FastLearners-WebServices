@@ -1,15 +1,12 @@
 package com.fast.learners.platform.iam.application.internal.outboundservices.hashing;
 
-
 /**
  * HashingService interface
  * This interface is used to encode and match passwords
  */
-
 public interface HashingService {
-
     /**
-            * Encode a password
+     * Encode a password
      * @param rawPassword the password to encode
      * @return String the encoded password
      */
@@ -22,4 +19,5 @@ public interface HashingService {
      * @return boolean true if the raw password matches the encoded password, false otherwise
      */
     boolean matches(CharSequence rawPassword, String encodedPassword);
+
 }

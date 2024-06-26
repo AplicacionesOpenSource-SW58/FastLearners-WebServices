@@ -1,4 +1,4 @@
 package com.fast.learners.platform.iam.domain.model.queries;
 
-public class GetAllMembershipsQuery {
+public record GetAllMembershipsQuery() {
 }

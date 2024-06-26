@@ -13,29 +13,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
  *  Memberships Controller
  *  This controller is responsible for handling all the requests related to memberships
  */
 @RestController
 @RequestMapping(value = "/ap/v1/memberships", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "Memberships", description = "Role Management Endpoints")
+@Tag(name = "Memberships", description = "Membership Management Endpoints")
 public class MembershipsController {
     private final MembershipQueryService membershipQueryService;
+
     public MembershipsController(MembershipQueryService membershipQueryService) {
         this.membershipQueryService = membershipQueryService;
     }
+
     /**
      * Get all memberships
-     * @return List of role resources
+     * @return List of membership resources
      * @see MembershipResource
      */
     @GetMapping
     public ResponseEntity<List<MembershipResource>> getAllMemberships() {
-        var getAllRolesQuery = new GetAllMembershipsQuery();
-        var memberships = membershipQueryService.handle(getAllRolesQuery);
-        var roleResources = memberships.stream().map(MembershipResourceFromEntityAssembler::toResourceFromEntity).toList();
-        return ResponseEntity.ok(roleResources);
+        var getAllMembershipsQuery = new GetAllMembershipsQuery();
+        var memberships = membershipQueryService.handle(getAllMembershipsQuery);
+        var membershipResources = memberships.stream().map(MembershipResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(membershipResources);
     }
 }

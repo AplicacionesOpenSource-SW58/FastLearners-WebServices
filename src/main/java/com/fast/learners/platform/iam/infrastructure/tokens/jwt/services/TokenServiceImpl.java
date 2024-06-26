@@ -24,8 +24,7 @@ import java.util.function.Function;
  * It uses the secret and expiration days from the application.properties file.
  */
 @Service
-public class TokenServiceImpl implements BearerTokenService{
-
+public class TokenServiceImpl implements BearerTokenService {
     private final Logger LOGGER = LoggerFactory.getLogger(TokenServiceImpl.class);
 
     private static final String AUTHORIZATION_PARAMETER_NAME = "Authorization";
@@ -87,6 +86,7 @@ public class TokenServiceImpl implements BearerTokenService{
     public String getUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
     /**
      * This method validates a JWT token
      * @param token the token
@@ -132,6 +132,7 @@ public class TokenServiceImpl implements BearerTokenService{
     private Claims extractAllClaims(String token) {
         return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
     }
+
     /**
      * Get the signing key
      * @return SecretKey the signing key
@@ -163,6 +164,4 @@ public class TokenServiceImpl implements BearerTokenService{
         if (isTokenPresentIn(parameter) && isBearerTokenIn(parameter)) return extractTokenFrom(parameter);
         return null;
     }
-
-
 }

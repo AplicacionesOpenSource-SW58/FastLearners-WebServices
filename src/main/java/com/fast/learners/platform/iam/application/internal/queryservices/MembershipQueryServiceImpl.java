@@ -1,4 +1,5 @@
 package com.fast.learners.platform.iam.application.internal.queryservices;
+
 import com.fast.learners.platform.iam.domain.model.entities.Membership;
 import com.fast.learners.platform.iam.domain.model.queries.GetAllMembershipsQuery;
 import com.fast.learners.platform.iam.domain.model.queries.GetMembershipByNameQuery;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 /**
  * RoleQueryServiceImpl class
- * This class is used to handle the role queries
+ * This class is used to handle the membership queries
  */
 @Service
 public class MembershipQueryServiceImpl implements MembershipQueryService {
@@ -19,16 +20,16 @@ public class MembershipQueryServiceImpl implements MembershipQueryService {
 
     /**
      * RoleQueryServiceImpl constructor
-     * @param membershipRepository the role repository
+     * @param membershipRepository the membership repository
      */
     public MembershipQueryServiceImpl(MembershipRepository membershipRepository) {
         this.membershipRepository = membershipRepository;
     }
 
     /**
-     * Handle the get all membership query
+     * Handle the get all memberships query
      * @param query the get all memberships query
-     * @return List<Role> the list of memberships
+     * @return List<Membership> the list of memberships
      */
     @Override
     public List<Membership> handle(GetAllMembershipsQuery query) {
@@ -36,9 +37,9 @@ public class MembershipQueryServiceImpl implements MembershipQueryService {
     }
 
     /**
-     * Handle the get role by name query
-     * @param query the get role by name query
-     * @return Optional<Role> the role
+     * Handle the get membership by name query
+     * @param query the get membership by name query
+     * @return Optional<Membership> the membership
      */
     @Override
     public Optional<Membership> handle(GetMembershipByNameQuery query) {

@@ -2,10 +2,10 @@ package com.fast.learners.platform.iam.interfaces.acl;
 
 import com.fast.learners.platform.iam.domain.model.commands.SignUpCommand;
 import com.fast.learners.platform.iam.domain.model.entities.Membership;
-import com.fast.learners.platform.iam.domain.model.queries.GetUserAuthByIdQuery;
-import com.fast.learners.platform.iam.domain.model.queries.GetUserAuthByUsernameQuery;
-import com.fast.learners.platform.iam.domain.services.UserAuthCommandService;
-import com.fast.learners.platform.iam.domain.services.UserAuthQueryService;
+import com.fast.learners.platform.iam.domain.model.queries.GetUserByIdQuery;
+import com.fast.learners.platform.iam.domain.model.queries.GetUserByUsernameQuery;
+import com.fast.learners.platform.iam.domain.services.UserCommandService;
+import com.fast.learners.platform.iam.domain.services.UserQueryService;
 import org.apache.logging.log4j.util.Strings;
 
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ import java.util.List;
  *
  */
 public class IamContextFacade {
-    private final UserAuthCommandService userAuthCommandService;
-    private final UserAuthQueryService userAuthQueryService;
+    private final UserCommandService userCommandService;
+    private final UserQueryService userQueryService;
 
-    public IamContextFacade(UserAuthCommandService userAuthCommandService, UserAuthQueryService userAuthQueryService) {
-        this.userAuthCommandService = userAuthCommandService;
-        this.userAuthQueryService = userAuthQueryService;
+    public IamContextFacade(UserCommandService userCommandService, UserQueryService userQueryService) {
+        this.userCommandService = userCommandService;
+        this.userQueryService = userQueryService;
     }
 
     /**
@@ -36,8 +36,8 @@ public class IamContextFacade {
      * @return The id of the created user.
      */
     public Long createUser(String username, String password) {
-        var signUpCommand = new SignUpCommand(username, password, (Membership.getDefaultMembership()));
-        var result = userAuthCommandService.handle(signUpCommand);
+        var signUpCommand = new SignUpCommand(username, password, List.of(Membership.getDefaultMembership()));
+        var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return 0L;
         return result.get().getId();
     }
@@ -46,12 +46,13 @@ public class IamContextFacade {
      * Creates a user with the given username, password and memberships.
      * @param username The username of the user.
      * @param password The password of the user.
-     * @param membershipType The type of membership of the created user.
+     * @param roleNames The names of the memberships of the user. When a membership does not exist, it is ignored.
+     * @return The id of the created user.
      */
-    public Long createUser(String username, String password, String membershipType) {
-        Membership membership = membershipType != null ? Membership.toMembershipFromName(membershipType) : new Membership();
-        var signUpCommand = new SignUpCommand(username, password, membership);
-        var result = userAuthCommandService.handle(signUpCommand);
+    public Long createUser(String username, String password, List<String> roleNames) {
+        var memberships = roleNames != null ? roleNames.stream().map(Membership::toMembershipFromName).toList() : new ArrayList<Membership>();
+        var signUpCommand = new SignUpCommand(username, password, memberships);
+        var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return 0L;
         return result.get().getId();
     }
@@ -62,8 +63,8 @@ public class IamContextFacade {
      * @return The id of the user.
      */
     public Long fetchUserIdByUsername(String username) {
-        var getUserByUsernameQuery = new GetUserAuthByUsernameQuery(username);
-        var result = userAuthQueryService.handle(getUserByUsernameQuery);
+        var getUserByUsernameQuery = new GetUserByUsernameQuery(username);
+        var result = userQueryService.handle(getUserByUsernameQuery);
         if (result.isEmpty()) return 0L;
         return result.get().getId();
     }
@@ -74,12 +75,10 @@ public class IamContextFacade {
      * @return The username of the user.
      */
     public String fetchUsernameByUserId(Long userId) {
-        var getUserByIdQuery = new GetUserAuthByIdQuery(userId);
-        var result = userAuthQueryService.handle(getUserByIdQuery);
+        var getUserByIdQuery = new GetUserByIdQuery(userId);
+        var result = userQueryService.handle(getUserByIdQuery);
         if (result.isEmpty()) return Strings.EMPTY;
         return result.get().getUsername();
     }
-
-
 
 }

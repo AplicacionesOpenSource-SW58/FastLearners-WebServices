@@ -9,7 +9,8 @@ import org.springframework.security.core.Authentication;
  * It extends the {@link TokenService} interface.
  * This interface is used to inject the JWT token service in the {@link com.acme.learning.platform.iam.infrastructure.tokens.jwt.services.TokenServiceImpl} class.
  */
-public interface BearerTokenService extends TokenService{
+public interface BearerTokenService extends TokenService {
+
     /**
      * This method is responsible for extracting the JWT token from the HTTP request.
      * @param token the HTTP request

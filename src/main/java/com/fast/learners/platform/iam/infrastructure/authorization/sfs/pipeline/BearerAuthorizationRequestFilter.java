@@ -24,9 +24,11 @@ import java.io.IOException;
  * </p>
  * @see OncePerRequestFilter
  */
-public class BearerAuthorizationRequestFilter extends OncePerRequestFilter{
+public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(BearerAuthorizationRequestFilter.class);
     private final BearerTokenService tokenService;
+
 
     @Qualifier("defaultUserDetailsService")
     private final UserDetailsService userDetailsService;

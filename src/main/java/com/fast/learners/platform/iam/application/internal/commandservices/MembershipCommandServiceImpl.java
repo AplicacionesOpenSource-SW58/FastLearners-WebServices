@@ -1,4 +1,5 @@
 package com.fast.learners.platform.iam.application.internal.commandservices;
+
 import com.fast.learners.platform.iam.domain.model.commands.SeedMembershipsCommand;
 import com.fast.learners.platform.iam.domain.model.entities.Membership;
 import com.fast.learners.platform.iam.domain.model.valueobjects.Memberships;
@@ -9,11 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 /**
- * * Implementation of {@link MembershipCommandService} to handle {@link SeedMembershipsCommand}
+ * Implementation of {@link MembershipCommandService} to handle {@link SeedMembershipsCommand}
  */
 @Service
 public class MembershipCommandServiceImpl implements MembershipCommandService {
-
 
     private final MembershipRepository membershipRepository;
 
@@ -28,9 +28,9 @@ public class MembershipCommandServiceImpl implements MembershipCommandService {
      */
     @Override
     public void handle(SeedMembershipsCommand command) {
-        Arrays.stream(Memberships.values()).forEach(role -> {
-            if(!membershipRepository.existsByName(role)) {
-                membershipRepository.save(new Membership(Memberships.valueOf(role.name())));
+        Arrays.stream(Memberships.values()).forEach(membership -> {
+            if(!membershipRepository.existsByName(membership)) {
+                membershipRepository.save(new Membership(Memberships.valueOf(membership.name())));
             }
         } );
     }

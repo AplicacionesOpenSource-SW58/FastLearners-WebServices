@@ -1,4 +1,5 @@
 package com.fast.learners.platform.iam.application.internal.eventhandlers;
+
 import com.fast.learners.platform.iam.domain.model.commands.SeedMembershipsCommand;
 import com.fast.learners.platform.iam.domain.services.MembershipCommandService;
 import org.slf4j.Logger;
@@ -39,5 +40,4 @@ public class ApplicationReadyEventHandler {
     private Timestamp currentTimestamp() {
         return new Timestamp(System.currentTimeMillis());
     }
-
 }

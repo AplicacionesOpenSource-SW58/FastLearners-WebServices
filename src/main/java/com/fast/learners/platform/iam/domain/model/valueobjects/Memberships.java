@@ -4,4 +4,5 @@ public enum Memberships {
     BASIC,
     REGULAR,
     PREMIUM
+
 }
